@@ -1,0 +1,19 @@
+{
+  "name": "asmt1",
+  "version": "1.0.0",
+  "description": "nodeJS up and running - includes package json, data and index js files, server request, and displaying of object content.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZenSorcere/IT122-Adv-Javascript-NodeJS.git"
+  },
+  "author": "Mike Gilson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ZenSorcere/IT122-Adv-Javascript-NodeJS/issues"
+  },
+  "homepage": "https://github.com/ZenSorcere/IT122-Adv-Javascript-NodeJS#readme"
+}
