@@ -1,10 +1,8 @@
-/* Hello, World! program in node.js 
-console.log("Hello, World!") */
-
 const http = require("http");
-//const path = require('path');
-const movies = require("./data");
-//const movies = require("movies");
+
+const movies = require("./data"); //.default;
+
+//let displayMovies = movies.getAll();
 
 http.createServer(function (req, res) {
     const path = req.url.toLowerCase();
@@ -15,7 +13,7 @@ http.createServer(function (req, res) {
             break;
         case '/about':
             res.writeHead(200, {'Content-Type': 'text/plain'});
-            res.end('About page');
+            res.end('About page\n This is Mike\'s About Page. He is learning node.js this quarter, which is an interesting challenge.\n Expect much stress baking to result!');
             break;
         default:
             res.writeHead(404, {'Content-Type': 'text/plain'});

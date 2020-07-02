@@ -6,6 +6,11 @@ const movies = [
     {title: 'Transformers', dir: 'Nelson Shin', year: 1986, rating: 'PG'}
 ];
 
+exports.getAll = () => {
+    return movies.forEach((movie) => {
+        return movie.title + ': \n' + movie.dir + '\n ' + movie.year + '\n ' + movie.rating; 
+    });
+}
 /* const getAll = movies.forEach((movie) => {
     console.log(movie.title + ': \n  ' + movie.dir + '\n  ' + movie.year + '\n  ' + movie.rating)
 }); */
@@ -18,11 +23,11 @@ const movies = [
 
 //console.log(getAll);
 
-const getAll = movies.forEach((movie) => {
+/* const getAll = movies.forEach((movie) => {
     console.log(movie.title + ': ' + movie.dir + ', ' + movie.year + ', ' + movie.rating); 
-});
+}); */
 
 //console.log(movies.length);
 
+//export default movies;
 module.exports = movies;
-
