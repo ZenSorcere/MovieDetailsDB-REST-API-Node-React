@@ -2,14 +2,14 @@ const http = require("http");
 
 const movies = require("./data"); //.default;
 
-let displayMovies = movies.getAll;  //getAll();
+let displayMovies = movies.getAll();
 
 http.createServer(function (req, res) {
     const path = req.url.toLowerCase();
     switch(path) {
         case '/':
             res.writeHead(200, {'Content-Type': 'text/plain'});
-            res.end('Home page\n'+ 'Array length: '+ displayMovies);
+            res.end('Home page\n'+ 'Array length: '+ displayMovies.length);
             break;
         case '/about':
             res.writeHead(200, {'Content-Type': 'text/plain'});

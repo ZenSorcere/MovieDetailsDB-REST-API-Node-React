@@ -7,9 +7,10 @@ const movies = [
 ];
 
 exports.getAll = () => {
-    return movies.forEach((movie) => {
+    return movies;
+    /* return movies.forEach((movie) => {
         return movie.title + ': \n' + movie.dir + '\n ' + movie.year + '\n ' + movie.rating; 
-    });
+    }); */
 }
 /* const getAll = movies.forEach((movie) => {
     console.log(movie.title + ': \n  ' + movie.dir + '\n  ' + movie.year + '\n  ' + movie.rating)
