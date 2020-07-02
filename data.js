@@ -30,4 +30,4 @@ exports.getAll = () => {
 //console.log(movies.length);
 
 //export default movies;
-module.exports = movies;
+//module.exports = movies;
