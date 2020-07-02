@@ -1,3 +1,13 @@
+/*  IT 122 - ADV JS - Week1 Assignment
+    Node.js up and running
+    --data.js -  containing an array of at least 5 items (objects),
+      where each item has at least 4 attributes and an exported getAll
+      method that returns all array items.
+    Created By: Mike Gilson
+    Date: 07/02/2020
+*/
+
+// Create array of 5 objects with 4 attributes each
 const movies = [
     {title : 'Star Wars', dir: 'George Lucas', year: 1977, rating: 'PG'},
     {title: 'The Princess Bride', dir: 'Rob Reiner', year: 1987, rating: 'PG'},
@@ -6,29 +16,7 @@ const movies = [
     {title: 'Transformers', dir: 'Nelson Shin', year: 1986, rating: 'PG'}
 ];
 
+// Export getter method for the array
 exports.getAll = () => {
     return movies;
-    /* return movies.forEach((movie) => {
-        return movie.title + ': \n' + movie.dir + '\n ' + movie.year + '\n ' + movie.rating; 
-    }); */
 }
-/* const getAll = movies.forEach((movie) => {
-    console.log(movie.title + ': \n  ' + movie.dir + '\n  ' + movie.year + '\n  ' + movie.rating)
-}); */
-
-/* const getAll = (() => {
-    movies.forEach((movie) => {
-        return movie.title + ': \n  ' + movie.dir + '\n  ' + movie.year + '\n  ' + movie.rating;
-    });
-}); */
-
-//console.log(getAll);
-
-/* const getAll = movies.forEach((movie) => {
-    console.log(movie.title + ': ' + movie.dir + ', ' + movie.year + ', ' + movie.rating); 
-}); */
-
-//console.log(movies.length);
-
-//export default movies;
-//module.exports = movies;
