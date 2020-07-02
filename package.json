@@ -1,6 +1,6 @@
 {
   "name": "asmt1",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "nodeJS up and running - includes package json, data and index js files, server request, and displaying of object content.",
   "main": "main.js",
   "scripts": {
