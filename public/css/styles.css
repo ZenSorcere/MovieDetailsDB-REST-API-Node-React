@@ -1,0 +1,11 @@
+li {
+    font-size: 2rem;
+    width: 300px;
+    margin: 4px;
+    padding: 4px;
+    list-style: none;
+    border: 1px solid black;
+    border-radius: 20px;
+    background-color: azure;
+    }
+    
