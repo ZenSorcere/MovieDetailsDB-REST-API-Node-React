@@ -1,12 +1,24 @@
-<h2>The body of the Index page</h2>
-<ul>
-    <li>List1</li>
-    <li>List2</li>
-    <li>List3</li>
-</ul>
-{{!-- <ul>
-{{#each displayMovies}}
- <li>{{title}}</li>
-{{/each}}
-</ul>
-<p>{{displayMovies}}</p> --}}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" /> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Mike's Movies</title>
+    <link rel="stylesheet" type="text/css" href="./css/styles.css" />
+  </head>
+  <body>
+   <h1>Welcome to Mike's Movies!</h1> 
+   <h2>Select a movie to learn more:</h2>
+   
+   <!--
+    -Using the #each helper, loop through each item in movies array (that was passed from index.js) and create a list item for each movie title.
+    -each list item created will be a link to the details template, with provided query param of the movie title.
+    -->
+    <ul>
+        {{#each movies}}
+            <li><a href= "/detail?title={{title}}">{{title}}</a></li>
+        {{/each}}
+    </ul>
+  </body>
+</html>
+

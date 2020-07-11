@@ -20,3 +20,12 @@ const movies = [
 exports.getAll = () => {
     return movies;
 }
+
+// Export getDetails method with a parameter of title. Uses find feature to look through movie array objects and find the title that matches the parameter, and return that movie object.
+// Ref: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find - "Find an object in an array by one of its properties"
+exports.getDetail = title => {
+    const movie = movies.find(movies => movies.title === title);
+    return movie;
+}
+// NOTE: After many tweaks and guessing attempts, I managed to get it to work, though I'm not certain I understand *how*. Just being honest.
+

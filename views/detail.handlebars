@@ -1,0 +1,39 @@
+<!--IT 122 - ADV JS - Week2 Assignment
+    Express Yourself
+    renders a detail.handlebars template to :
+    -show an appropriate page title
+    -show the value submitted on request url
+    -show a link back to home page
+
+    Created By: Mike Gilson
+    Date: 07/11/2020
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" /> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<!-- Adjust page title for each detail page using the passed movie title parameter -->
+    <title>Mike's Movies - {{title}}</title>
+    <link rel="stylesheet" type="text/css" href="./css/styles.css" />
+  </head>
+  <body>
+    <h1>Welcome to Mike's Movies!</h1> 
+
+<!-- Adjust h2 details using the passed movie title parameter -->
+    <h2>Details for {{title}}:</h2>
+
+<!-- Using the #with built-in helper, reference the getDetails method that was passed to the details.handlebars page in index.js and display additional array details for the movie title in the array.
+Ref: https://handlebarsjs.com/guide/builtin-helpers.html#with
+-->
+        <ul>
+        {{#with stats}}
+            <li class="stats">Director: {{ dir }}
+            <li class="stats">Year Released: {{ year }}
+            <li class="stats">MPA Rating: {{ rating }}
+        {{/with}}
+        </ul>
+
+<!-- Link back to homepage -->
+    <p class="home"><a href="../">Return to homepage</a></p>
+
