@@ -29,3 +29,49 @@ exports.getDetail = title => {
 }
 // NOTE: After many tweaks and guessing attempts, I managed to get it to work, though I'm not certain I understand *how*. Just being honest.
 
+// Add Movie Object to movies array
+exports.addMovie = (title, dir, year, rating) => {
+    
+    if ([title, dir, year, rating].includes(undefined)) {
+        return console.log(`failed to add "${title}" -- incomplete info`);
+    } else {
+        const newMovie = {
+            title: title,
+            dir: dir,
+            year: year,
+            rating: rating
+        };
+        movies.push(newMovie);
+        console.log(`"${title}" added`);
+        return newMovie;
+    }
+    
+};
+
+// Delete Movie Object from movies array
+exports.delMovie = title => {
+    const delMovie = movies.findIndex(movies => movies.title === title);
+    if (delMovie === -1) {
+        console.log(`"${title}" doesn't exist`);
+    } else {
+    //console.log(title + " " + delMovie);
+    movies.splice(delMovie,1);
+    //console.log(exports.getAll());
+    console.log(`"${title}" removed`);
+    return movies;
+    }
+};
+
+
+// Sample console tests to confirm methods worked
+/*
+console.log(exports.getAll()); //see starting array
+console.log(exports.getDetail("Hook")); //see specific item
+console.log(exports.getDetail("groupie"));
+exports.addMovie("Fake Film", "Alan Smithee", 1980, "PG"); //add item to end of array
+exports.addMovie("gattaca");
+console.log(exports.getAll()); //see array with added item
+exports.delMovie("Hook"); //remove item from middle of array
+exports.delMovie("starwars");
+console.log(exports.getAll()); //see array sans removed item
+*/
