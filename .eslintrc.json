@@ -11,5 +11,11 @@
     "rules": {
         "prefer-arrow-callback": "warn",
         "no-var": "warn"
+    },
+
+    /* Lint was throwing errors on movietests.js, saying "describe" and "it" were undefined. Talked with Aggie, who told me about the no-undef eslint rule that is in the recommended list, and how to add globals to prevent them from throwing errors when running "npm run lint". */
+    "globals": {
+        "describe": "readonly",
+        "it": "readonly"
     }
 }
