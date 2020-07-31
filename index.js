@@ -19,7 +19,23 @@
     Updated By: Mike Gilson
     Date: 07/22/2020
 */
+/*---------------------------------------------------------------
+    IT 122 - Week5 Assignment
+    REST APIs
+    --Provide API routes for each of the methods exported by the data module:
+        --get a single item
+        --get all items
+        --delete an item
+        add or update an item(new route)
+    --Each API should:
+        --support cross-origin acess
+        --accept necessary query parameters or request body
+        --return appropirate JSON data on success
+        --return an error status code and message is something went wrong
 
+    Updated By: Mike Gilson
+    Date: 07/31/2020
+*/
 
 // Create variables for required modules for http and data.js
 // Define app as Express instance with configuration
@@ -45,6 +61,11 @@ app.use(express.static(__dirname + '/public' ));
 
 // Parse form submissions
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+
+// set Access-Control-Allow-Origin header for api routes
+app.use('/api', require('cors')());
+
 
 
 // Route path for home page. Renders home.handlebars and finds all movies documents from collection, and renders them into the handlebars template.
@@ -56,6 +77,18 @@ app.get('/', (req, res, next) => {
         .catch(err => next(err));
 })
 
+// GET ALL - API
+/* 
+Get API route for all items. References movies model and returns all movies in JSON format. Returns 500 Status error if movies cannot be retrieved.
+*/
+app.get('/api/movies', (req, res) => {
+    return movies.find({})
+    .then((movies) => {
+        res.json(movies)
+    })
+    .catch(err => {
+        res.status(500).send('Error occurred: dabatase error')})
+})
 
 // Route path for detail page. Renders detail.handlebars, with the movie title passed in the query. Mongodb collection is accessed, finds the document with the provided title, and returns the information.
 app.get('/detail', (req, res) => {
@@ -65,6 +98,26 @@ app.get('/detail', (req, res) => {
         res.render('detail', {title: movietitle, stats: movies});
     });
 });
+
+// GET SINGLE ITEM - API
+/*
+Get API route for a single item, provided in url params. If movie title not found, returns 400 error saying desired movie wasn't found. Else, movie info is returned in JSON format. Returns 500 Status error if movies cannot be retrieved. 
+*/
+app.get('/api/movies/:title', (req, res) => {
+    const movietitle = req.params.title; 
+    movies.findOne({title: movietitle})
+    .then((movie) => {
+        if (movie === null) {
+            return res.status(400).send(`Error: "${movietitle}" not found`)
+        } else {
+        res.json(movie)
+        }
+    })
+    .catch(err => {
+        res.status(500).send('Error occurred: dabatase error', err)
+    })
+    })
+
 
 // Route path for delete, with movie title passed in the query. Mongdb collection accessed, and findOneAndDelete is run with the provided movie title. Function runs to determine if movie title doesn't exist and returns failure to delete message, and if movie is found, deletes and confirms deletion. 
 app.get('/delete', (req, res) => {
@@ -82,6 +135,42 @@ app.get('/delete', (req, res) => {
         }
     });
 });
+
+// DELETE SINGLE ITEM - API
+/*
+Delete API route for a single movie item, provided in url params. If requested movie is not in db, returns 400 error saying desired movie wasn't found. Else, removed movie info is returned in JSON format. Returns 500 Status error if movies cannot be retrieved.
+*/
+app.delete('/api/movies/:title', (req, res) => {
+    const movietitle = req.params.title; 
+    movies.findOneAndDelete({title: movietitle})
+    .then(movie => {
+        if(movie === null) {
+            return res.status(400).send(`Error: "${movietitle}" not found`)   
+        } else {
+            res.json(movie)}
+    })
+
+    .catch(err => {
+        res.status(500).send('Error occurred: dabatase error', err)
+    })
+})
+
+// UPDATE/ADD SINGLE ITEM - API
+/*
+Post API route for adding a single movie item or updating existing movie, provided in url params. Creates a new movie in the db if no documents match the provided title url parameter. If there is a match, will update with info passed in the body, and won't create a duplicate. Returns the updated movie document in JSON format. Otherwise, Returns 500 Status error if movies cannot be retrieved.
+*/
+app.post('/api/movies/:title', (req, res) => {
+    const movietitle = req.params.title;
+    movies.findOneAndUpdate({title: movietitle}, req.body, {upsert: true, new: true})
+    .then(movie => {
+        res.json(movie)
+    })
+    .catch(err => {
+        res.status(500).send('Error occurred: dabatase error', err)
+    })
+})
+
+
     
 // Send plain text response
 app.get('/about', (req, res) => {
@@ -99,3 +188,6 @@ app.use( (req, res) => {
 app.listen(app.get('port'), () => {
     console.log('Express started');
 });
+
+
+

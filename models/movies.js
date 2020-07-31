@@ -18,6 +18,10 @@ const mongoose = require('mongoose');
 //connect to db via the credentials info
 mongoose.connect(credentials.connectionString, { dbName: "sccprojectdb", useNewUrlParser: true, useUnifiedTopology: true });
 
+// (Week5 - 7/31/2020)
+// Required mongodb/mongoose setting for using findOneAndDelete and findOneAndUpdate
+mongoose.set('useFindAndModify', false);
+
 // when mongoose connects to mongodb, display confirmation in console
 mongoose.connection.on('open', () => {
     console.log('Mongoose connected.');
