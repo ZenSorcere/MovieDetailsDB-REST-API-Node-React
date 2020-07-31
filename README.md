@@ -82,3 +82,24 @@ install the mongoose npm package,
   should return a response indicating whether delete succeeded or failed.
   
   
+  WEEK5 - REST APIS
+-------------------------------------------------------------------------
+Soon you'll build a front-end that needs to access your data.  REST API's have now become necessary.
+
+For this week, provide API routes for each of the methods exported by your data module:
+--get a single item
+--get all items
+--delete an item
+--add or update an item (new route)
+Most can be accessible via GET request but your add route will need to support a POST request. 
+
+Each API should:
+--support cross-origin access,
+--accept necessary query parameters or request body,
+--return appropriate JSON data on success,
+--return an error status code and message if something went wrong,
+
+No changes are required to your UI or existing data methods. You can use Postman for API testing.
+
+
+
