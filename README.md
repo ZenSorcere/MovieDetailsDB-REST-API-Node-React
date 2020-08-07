@@ -102,4 +102,21 @@ Each API should:
 No changes are required to your UI or existing data methods. You can use Postman for API testing.
 
 
+WEEK6 - Frontend UI in React
+-------------------------------------------------------------------------
+Converting the frontend UI into a single-page application (SPA) using React.
 
+Keeping existing HTML templates and routes for reference.
+
+Create a new React-based home page. Interaction will be similar to earlier web pages, but without page reloads. Your new SPA page should:
+
+ - Show a list of the items in your database 
+ - Show item details when one is selected
+(NOTE - Edit operations will be handled in a separate assignment.)
+
+ 
+
+Hints: 
+ - It may be simplest to pass the full list of items from your server's home route to your HTML page using this syntax:
+    - res.render('home_react', {items: JSON.stringify(items)});
+ - Start with provided handlebars template. Components and additional functions will be added.
