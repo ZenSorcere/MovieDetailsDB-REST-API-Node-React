@@ -1,0 +1,124 @@
+<html>
+<head>
+    <title>React App Demo</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <title>Mike's Movies</title>
+    <link rel="stylesheet" type="text/css" href="./css/styles.css" />
+</head>
+
+<body>
+
+<div id="root"></div>
+<script type="text/babel">
+
+/* Movie Component
+    movieArray and selected props passed. Map the passed Array info to list items
+    with the id property as a key, with the title property as the text. Include an a tag to make the text clickable.  onClick, the selected prop is passed.
+*/
+    const Movie = props => {  
+        return (
+            <div>
+                <ul>
+                {props.movieArray.map((movie) => (
+                    <li key={movie._id}><a href="#" onClick={props.selected}>{movie.title}</a></li>
+                ))}
+                </ul>   
+            </div>
+        ); 
+    };
+
+/* MovieDetails Component
+    currentMovie and the resetCurrent function passed as props. diplsays each
+    property from the currentMovie object in a list. Also includes a link to 
+    return to the full list of movies by passing a function to reset currentMovie when clicked. 
+*/
+    const MovieDetails = props => {
+        return (
+            <div>
+                <h2>{props.current.title}</h2>               
+                <ul>
+                    <li className="stats">Director: {props.current.dir}</li>
+                    <li className="stats">Release Year: {props.current.year}</li>
+                    <li className="stats">MPAA Rating: {props.current.rating}</li>
+                </ul>
+                <p className="home"><a href="#" onClick={props.reset} >Return to List</a></p>
+            </div>
+        )
+    }
+
+
+    class App extends React.Component{
+      constructor(props){
+          super(props);
+          // Set initial state using data from server application
+          this.state = {
+            movie: {{{ movies }}}, //provided from index.js for '/' path. 
+            currentMovie: { } // current selected item
+          };
+
+          // bind application state to click handler
+          this.selectItem = this.selectItem.bind(this);
+       }
+
+      /*
+      Handle list item clicked
+        find movie object in movies array that matches the text of the link. 
+        setState then sets currentMovie to that movie. 
+      */
+      selectItem(event) {
+        event.preventDefault();
+        const movie = this.state.movie.find(movie => event.target.text === movie.title);
+        this.setState({currentMovie: movie});
+        
+        
+        /*
+        console.log("selected " + movie.title);
+        console.log(this.state.currentMovie);
+        console.log(event.target.innerText);
+        */
+      }
+    /*
+    Reset currentMovie
+        function created to return currentMovie to it's original empty state
+    */ 
+      resetCurrent() {
+          this.setState({currentMovie: { } })
+      }
+
+      render() {
+        // render app UI elements
+/* 
+If the currentMovie Object *doesn't* have zero parameters(i.e. something has
+  been assigned to currentMovie), then show the MovieDetails component. 
+Pass props of what is in currentMovie, as well as the resetCurrent function (to
+  be used for the Return to list link). 
+Else: while currentMovie is empty, show the Movie Component, passing in the 
+  array state and the selectItem function. 
+*/ 
+        if (Object.entries(this.state.currentMovie).length !== 0 ) {
+            return (
+            <div>
+                <h1>Welcome to Mike's Movies!</h1>
+                <MovieDetails current={this.state.currentMovie} reset={() => this.resetCurrent()} />
+            </div>
+            );
+        } else {
+        return (
+        
+          <div>
+            <h1>Welcome to Mike's Movies!</h1> 
+            <h2>Select a movie to learn more:</h2>
+            <Movie movieArray={this.state.movie} selected={event => this.selectItem(event)}/>
+          </div>
+          );
+      }}
+    }
+
+    ReactDOM.render(<App />, document.getElementById('root'));
+    
+</script>
+</body>
+</html>

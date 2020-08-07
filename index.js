@@ -69,10 +69,12 @@ app.use('/api', require('cors')());
 
 
 // Route path for home page. Renders home.handlebars and finds all movies documents from collection, and renders them into the handlebars template.
+// Updated(8/7/20): adjusted res.render to send a handelbars template for React. 
 app.get('/', (req, res, next) => {
     return movies.find({}).lean()
         .then((movies) => {
-            res.render('home', { movies });
+            //res.render('home', { movies });
+            res.render('home-react', {movies: JSON.stringify(movies)});
         })
         .catch(err => next(err));
 })

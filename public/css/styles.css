@@ -6,12 +6,12 @@ h1 {
     text-align: center;
     }
 
-h2 {
+h2, h3 {
     margin-left: .5em;
     }
 
 li {
-    font-size: 2em;
+    font-size: 1.75em;
     width: 300px;
     margin: .5em;
     padding: .25em .5em;
