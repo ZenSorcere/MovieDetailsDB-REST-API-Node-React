@@ -142,7 +142,7 @@ app.get('/delete', (req, res) => {
 /*
 Delete API route for a single movie item, provided in url params. If requested movie is not in db, returns 400 error saying desired movie wasn't found. Else, removed movie info is returned in JSON format. Returns 500 Status error if movies cannot be retrieved.
 */
-app.delete('/api/movies/:title', (req, res) => {
+app.get('/api/movies/delete/:title', (req, res) => {
     const movietitle = req.params.title; 
     movies.findOneAndDelete({title: movietitle})
     .then(movie => {

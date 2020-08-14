@@ -1,6 +1,11 @@
 /*  IT 122 - ADV JS - Week2 Assignment */
 
 /* General Styles */
+.wrapper {
+    width: 70%;
+    margin: 0 auto;
+}
+
 h1 {
     margin: 0 auto;
     text-align: center;
@@ -9,6 +14,11 @@ h1 {
 h2, h3 {
     margin-left: .5em;
     }
+
+.mainlist {
+    float: left;
+    width: 50%;
+}
 
 li {
     font-size: 1.75em;
@@ -38,6 +48,15 @@ a:active {
     }
 
 /* Details page specific styles */
+.sidebar {
+    width: 40%;
+    float: right;
+}
+
+.conf {
+    color: red;
+}
+
 .stats {
     font-size: 1.5em;
     }
