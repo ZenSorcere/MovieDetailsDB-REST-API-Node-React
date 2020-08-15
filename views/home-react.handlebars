@@ -1,3 +1,24 @@
+<!--IT122 - WEEK 7/8 - REACT CRUD
+      - Add form with entry fields for each attribute
+      - Fields populate when user selects item from master list
+      - A Delete button that deletes current selected item
+      - A Clear button to clear form fields
+      - Master list updates to reflect current db changes
+      - A Save button that saves updates to the master list
+  Date Created: 08/15/2020
+  Creator: Mike Gilson
+
+  NOTE: Save button doesn't currently save edits to existing
+        entries.
+        The current format of using movie.title as reference
+        gets in the way of editing current entries. The fix 
+        involves changing the index.js put API to reference
+        id instead of title, which would require addtional
+        updates. If saving an edit attempt occurs, a duplicate
+        key error displays in the terminal.
+
+-->
+
 <html>
 <head>
     <title>React App Demo</title>
@@ -65,7 +86,7 @@
             currentMovie: { } // current selected item
           };
 
-          // bind application state to click handler
+          // bind application state to click handlers
           this.selectItem = this.selectItem.bind(this);
           this.resetCurrent = this.resetCurrent.bind(this);
           this.handleEdit = this.handleEdit.bind(this);
@@ -98,7 +119,7 @@
         this.setState({currentMovie: newMovie});
         
     }
-
+// DELETE MOVIE FUNCTION
     handleDelete () {
       console.log('delete me');
       fetch(`/api/movies/delete/${this.state.currentMovie.title}`)
@@ -107,21 +128,20 @@
           return response.json();
         })
         .then((result) => {
-          console.log(result)
-          // on success remove deleted item from this.state.movies
-          //this.setState({movie: {{{ movies }}} });
+// On success remove deleted item from displaying in this.state.movies
           this.setState({ movie: [...this.state.movie.filter(movie => movie.title !==this.state.currentMovie.title)] });
-          
-          console.log(this.state.movie);
-          console.log(this.state.currentMovie);
-          ReactDOM.render(<h2 className="conf">"{this.state.currentMovie.title}" Deleted?</h2>, document.getElementById('status'));
+          //console.log(this.state.movie);
+          //console.log(this.state.currentMovie);
+// Display message indicating indicated movie was deleted
+          ReactDOM.render(<h2 className="conf">"{this.state.currentMovie.title}" Deleted!</h2>, document.getElementById('status'));
           this.resetCurrent();
         })
         .catch(err => console.log(err))
     }
 
+// SAVE NEW MOVIE FUNCTION
     handleSave (event) {
-      console.log("Save me!");
+      //console.log("Save me!");
       const newMov = this.state.currentMovie;
       newMov[event.target.name] = event.target.value;
       fetch(`/api/movies/${this.state.currentMovie}`, {
@@ -130,24 +150,27 @@
         body: JSON.stringify(newMov)
       })
       .then((response) => response.json())
-      .then((data) => {
-  // handle successful response
-          this.setState({ movie: this.state.movie })
-          /* const movie = this.state.movie.findOneAndUpdate(movie => event.target.text === movie.title);
+// Create Array from this.state.movie and push result of save to new Array.
+//  setState of movie to new Array to display update client-side.      
+      .then(result => {
+        const newArrayOfMovies = this.state.movie.map(movie => {
+          //console.log(result.title, movie.title);
+            return movie;
+          })
+          newArrayOfMovies.push(result)
+          this.setState({ movie : newArrayOfMovies})
+          /*console.log("movieT: " + movie.title);
+          console.log("resultT: " + result.title)
+          console.log(result);
+          console.log(newArrayOfMovies);
           */
-          
-          this.setState({ movie: [...this.state.movie.findOne(movie => movie.title)]
-          });
-          
-      
-      
-      
-      ReactDOM.render(<h2 className="conf">"{this.state.currentMovie.title}" Added?</h2>, document.getElementById('status'));
+// Display message indicating new movie was saved
+          ReactDOM.render(<h2 className="conf">"{this.state.currentMovie.title}" Added!</h2>, document.getElementById('status'));
           this.resetCurrent();
       })
-      
       .catch((err) => console.log(err))
     }
+
     /*
     Reset currentMovie
         function created to return currentMovie to it's original empty state
@@ -157,27 +180,10 @@
       }
 
       render() {
-        // render app UI elements
-/* 
-If the currentMovie Object *doesn't* have zero parameters(i.e. something has
-  been assigned to currentMovie), then show the MovieDetails component. 
-Pass props of what is in currentMovie, as well as the resetCurrent function (to
-  be used for the Return to list link). 
-Else: while currentMovie is empty, show the Movie Component, passing in the 
-  array state and the selectItem function. 
-*/ 
-        /* if (Object.entries(this.state.currentMovie).length !== 0 ) {
-            return (
-            <div>
-                <h1>Welcome to Mike's Movies!</h1>
-                <MovieDetails current={this.state.currentMovie} reset={() => this.resetCurrent()} />
-            </div>
-            );
-        }  else { */
-          
+
         return (
         
-          <div className="wrapper">
+          <div id="display" className="wrapper">
             <h1>Welcome to Mike's Movies!</h1> 
             
             <Movie movieArray={this.state.movie} selected={event => this.selectItem(event)}/>
@@ -190,8 +196,7 @@ Else: while currentMovie is empty, show the Movie Component, passing in the
             />
           </div>
           );
-     // }}
-    }
+      }
     }
 
     ReactDOM.render(<App />, document.getElementById('root'));
@@ -199,8 +204,3 @@ Else: while currentMovie is empty, show the Movie Component, passing in the
 </script>
 </body>
 </html>
-
-{{!-- FROM CLAS 8/11/2020
-
-
- --}}

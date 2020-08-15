@@ -167,9 +167,10 @@ app.post('/api/movies/:title', (req, res) => {
     .then(movie => {
         res.json(movie)
     })
-    .catch(err => {
-        res.status(500).send('Error occurred: dabatase error', err)
-    })
+    .catch((err) => console.log(err))
+    //.catch(err => {
+    //    res.status(500).send('Error occurred: dabatase error', err)
+    //})
 })
 
 
