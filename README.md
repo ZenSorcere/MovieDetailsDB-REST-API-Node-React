@@ -1,7 +1,7 @@
 # IT122-Adv-Javascript-NodeJS
 Repository for IT 122: Advanced Javascript (Node.js) - Summer2020
 
-## WEEK1 - Node.js up and running
+WEEK1 - Node.js up and running
 -------------------------------------------------------------------------
 First step toward a working web server application. Should have following files and functionality:
 
@@ -17,7 +17,7 @@ First step toward a working web server application. Should have following files 
   * http://localhost:3000/about - returns some information about self
   * Any other path returns a 404 status code and error message
 
-## WEEK2 - Express yourself
+WEEK2 - Express yourself
 -------------------------------------------------------------------------
 Simplify server application and add formatted pages, using Express and basic templating.
 
@@ -120,3 +120,17 @@ Hints:
  - It may be simplest to pass the full list of items from your server's home route to your HTML page using this syntax:
     - res.render('home_react', {items: JSON.stringify(items)});
  - Start with provided handlebars template. Components and additional functions will be added.
+ 
+
+WEEK 7/8 - React CRUD
+-------------------------------------------------------------------------
+Update your application with the following: 
+
+ - A details form with the following;
+    - Entry fields for each item attribute;
+    - Fields are populated when the user selects an item from the master list,
+    - A 'Delete' button that deletes the current item from your database when clicked,
+    - A 'Clear' button to clear the form when clicked,
+ - Your master list should update to reflect database changes
+ - EXTRA CREDIT:
+    - Show a 'Save' button that saves edits into your database when clicked.
