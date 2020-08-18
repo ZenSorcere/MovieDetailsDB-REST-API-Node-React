@@ -16,6 +16,17 @@
         id instead of title, which would require addtional
         updates. If saving an edit attempt occurs, a duplicate
         key error displays in the terminal.
+  UPDATE (8/17/2020): Edits to existing entries now save to db
+        except for edits to existing movie title.
+        Updated put API to no longer reference title in the url,
+        which helped. Current issues still exist for editing
+        existing titles, and when a new item is created, there is
+        still a console warning about each child in a list needing
+        a unique key prop.
+        They have keys when the page is refreshed, so it may have
+        to do with the order of events. I attempted to include <li>
+        tag elements for the handleSave() map, but couldnt get any
+        conclusive results. 
 
 -->
 
@@ -112,8 +123,8 @@
       }
 
     handleEdit (event) {
-        console.log(event.target.name)
-        console.log(event.target.value)
+        //console.log(event.target.name)
+        //console.log(event.target.value)
         let newMovie = this.state.currentMovie;
         newMovie[event.target.name] = event.target.value;
         this.setState({currentMovie: newMovie});
@@ -133,7 +144,7 @@
           //console.log(this.state.movie);
           //console.log(this.state.currentMovie);
 // Display message indicating indicated movie was deleted
-          ReactDOM.render(<h2 className="conf">"{this.state.currentMovie.title}" Deleted!</h2>, document.getElementById('status'));
+          ReactDOM.render(<h2 className="conf">"{this.state.currentMovie.title}" deleted!</h2>, document.getElementById('status'));
           this.resetCurrent();
         })
         .catch(err => console.log(err))
@@ -143,29 +154,42 @@
     handleSave (event) {
       //console.log("Save me!");
       const newMov = this.state.currentMovie;
+      
+      //console.log(newMov);
+      //console.log(this.state.currentMovie.title);
       newMov[event.target.name] = event.target.value;
-      fetch(`/api/movies/${this.state.currentMovie}`, {
+      fetch(`/api/movies/add`, {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newMov)
       })
       .then((response) => response.json())
 // Create Array from this.state.movie and push result of save to new Array.
-//  setState of movie to new Array to display update client-side.      
+//  IF result is new(upserted), map a newArray, push the newly upserted movie to it and set state.movie to the new array.      
       .then(result => {
-        const newArrayOfMovies = this.state.movie.map(movie => {
+        if (result.upserted) {
+          const newMovie = this.state.currentMovie;
+          newMovie._id = result.upserted._id;
+          //this.state.movie.push(newMovie);
+          const newArrayOfMovies = this.state.movie.map(movie => {
           //console.log(result.title, movie.title);
-            return movie;
+          //<li key={movie._id}><a href="#" onClick={this.selectItem}>{movie.title}</a></li>
+          
+          return movie;
           })
-          newArrayOfMovies.push(result)
-          this.setState({ movie : newArrayOfMovies})
+          newArrayOfMovies.push(newMovie);
+          this.setState({ movie : newArrayOfMovies});
+        }
+          
+
+          
           /*console.log("movieT: " + movie.title);
           console.log("resultT: " + result.title)
           console.log(result);
           console.log(newArrayOfMovies);
           */
 // Display message indicating new movie was saved
-          ReactDOM.render(<h2 className="conf">"{this.state.currentMovie.title}" Added!</h2>, document.getElementById('status'));
+          ReactDOM.render(<h2 className="conf">"{this.state.currentMovie.title}" added!</h2>, document.getElementById('status'));
           this.resetCurrent();
       })
       .catch((err) => console.log(err))

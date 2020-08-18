@@ -161,14 +161,24 @@ app.get('/api/movies/delete/:title', (req, res) => {
 /*
 Post API route for adding a single movie item or updating existing movie, provided in url params. Creates a new movie in the db if no documents match the provided title url parameter. If there is a match, will update with info passed in the body, and won't create a duplicate. Returns the updated movie document in JSON format. Otherwise, Returns 500 Status error if movies cannot be retrieved.
 */
-app.post('/api/movies/:title', (req, res) => {
-    const movietitle = req.params.title;
-    movies.findOneAndUpdate({title: movietitle}, req.body, {upsert: true, new: true})
+app.post('/api/movies/add', (req, res) => {
+    //const movietitle = req.params.title;
+    //const userID = req.params._id;
+    //movies.findByIdAndUpdate({title: movietitle}, req.body, {upsert: true, new: true})
+
+    //**may need to remove the id with his ''?**
+    // 
+    delete req.body["_id"];
+    //'title: req.body.title' as alt to "movietitle"
+    //movies.findOneAndUpdate({title: req.body.title}, req.body, {upsert: true, new: true})
+
+//changing to "{_id: req.body._id}" while removing delete id above was able to save edits to existing titles, but new items were then getting null ids. hmph.
+    movies.updateOne({title: req.body.title}, req.body, {upsert: true, new: true})
     .then(movie => {
-        res.json(movie)
+        res.json(movie) 
     })
     .catch((err) => console.log(err))
-    //.catch(err => {
+    //.catch(err => { 
     //    res.status(500).send('Error occurred: dabatase error', err)
     //})
 })
