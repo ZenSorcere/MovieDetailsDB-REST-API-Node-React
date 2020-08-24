@@ -4,7 +4,7 @@
   "description": "classwork - nodeJS, Express, handlebars, ESLint, mocha, chai. Includes package json, data and index js files, server request, and displaying of object content via called array methods.",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "index.js",
     "test": "mocha test/**",
     "lint": "eslint **/*.js"
   },
