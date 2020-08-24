@@ -9,14 +9,18 @@
 
 
 // reference db credentials
-const credentials = require("../credentials");
+//const credentials = require("../credentials");
+const user = process.env.MONGO_USERNAME || "dbuser";
+const pass = process.env.MONGO_PASSWORD || "dbpassword";
+const url = process.env.MONGO_URL || "sccprojects.llt4i.mongodb.net";
+let uri = `mongodb+srv://${user}:${pass}@${url}/sccprojectdb?retryWrites=true&w=majority`;
 
 // require mongoose ODM library
 const mongoose = require('mongoose');
 
 
 //connect to db via the credentials info
-mongoose.connect(credentials.connectionString, { dbName: "sccprojectdb", useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(uri, { dbName: "sccprojectdb", useNewUrlParser: true, useUnifiedTopology: true });
 
 // (Week5 - 7/31/2020)
 // Required mongodb/mongoose setting for using findOneAndDelete and findOneAndUpdate
