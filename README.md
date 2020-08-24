@@ -1,3 +1,8 @@
+DEPLOYMENT: Finished app is uploaded to the following locations:
+-------------------------------------------------------------------------
+Glitch: https://maple-platinum-archer.glitch.me
+Heroku: https://evening-castle-45800.herokuapp.com/
+
 # IT122-Adv-Javascript-NodeJS
 Repository for IT 122: Advanced Javascript (Node.js) - Summer2020
 
