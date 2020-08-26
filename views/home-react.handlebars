@@ -32,12 +32,13 @@
 
 <html>
 <head>
-    <title>React App Demo</title>
+    <!-- <title>React App Demo</title> -->
     <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
     <!-- Don't use this in production: -->
     <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
     <title>Mike's Movies</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" type="text/css" href="./css/styles.css" />
 </head>
 
@@ -46,7 +47,39 @@
 <div id="root"></div>
 <script type="text/babel">
 
-/* Movie Component
+
+
+/* MovieDetails Component
+    currentMovie and the resetCurrent function passed as props. diplsays each
+    property from the currentMovie object in a list. Also includes a link to 
+    return to the full list of movies by passing a function to reset currentMovie when clicked. 
+*/
+    const MovieDetails = props => {
+        return (
+            <div className="sidebar">
+                <h2>Details for {props.current.title || "selected movie:"}</h2>               
+               
+                <form>
+                    <label>Title:</label><br/>
+                    <input onChange={props.edit} type="text" name= "title" value={props.current.title || ""}  /><br/>
+                    <label>Director:</label><br/>
+                    <input onChange={props.edit} type="text" name= "dir" value={props.current.dir || ""}  /><br/>
+                    <label>Release Year:</label><br/>
+                    <input onChange={props.edit} type="text" name= "year" value={props.current.year || ""}  /><br/>
+                    <label>MPAA Rating:</label><br/>
+                    <input  onChange={props.edit} type="text" name= "rating" value={props.current.rating || ""} />
+                </form>
+                <div className="btn">
+                <button onClick={props.reset}>Clear Fields</button>
+                <button onClick={props.delete}>Delete Movie</button>
+                <button onClick={props.save}>Save Entry</button>
+                </div>
+                <div id="status"></div>
+            </div>
+        )
+    }
+
+    /* Movie Component
     movieArray and selected props passed. Map the passed Array info to list items
     with the id property as a key, with the title property as the text. Include an a tag to make the text clickable.  onClick, the selected prop is passed.
 */
@@ -62,30 +95,6 @@
             </div>
         ); 
     };
-
-/* MovieDetails Component
-    currentMovie and the resetCurrent function passed as props. diplsays each
-    property from the currentMovie object in a list. Also includes a link to 
-    return to the full list of movies by passing a function to reset currentMovie when clicked. 
-*/
-    const MovieDetails = props => {
-        return (
-            <div className="sidebar">
-                <h2>Details for {props.current.title || "selected movie:"}</h2>               
-               
-                <form>
-                    Title: <input onChange={props.edit} type="text" name= "title" value={props.current.title || ""}  /><br/>
-                    Director: <input onChange={props.edit} type="text" name= "dir" value={props.current.dir || ""}  /><br/>
-                    Release Year: <input onChange={props.edit} type="text" name= "year" value={props.current.year || ""}  /><br/>
-                    MPAA Rating: <input  onChange={props.edit} type="text" name= "rating" value={props.current.rating || ""} />
-                </form>
-                <button onClick={props.reset}>Clear Fields</button>
-                <button onClick={props.delete}>Delete Movie</button>
-                <button onClick={props.save}>Save Entry</button>
-                <div id="status"></div>
-            </div>
-        )
-    }
 
 
     class App extends React.Component{
@@ -210,7 +219,7 @@
           <div id="display" className="wrapper">
             <h1>Welcome to Mike's Movies!</h1> 
             
-            <Movie movieArray={this.state.movie} selected={event => this.selectItem(event)}/>
+            
             <MovieDetails
                 current={this.state.currentMovie}
                 reset={() => this.resetCurrent()}
@@ -218,6 +227,7 @@
                 delete={this.handleDelete}
                 save={this.handleSave}
             />
+            <Movie movieArray={this.state.movie} selected={event => this.selectItem(event)}/>
           </div>
           );
       }

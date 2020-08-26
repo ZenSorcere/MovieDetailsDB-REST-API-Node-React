@@ -3,13 +3,19 @@
     --install Mongoose
     --Create data model that connects to db, defines data schema, and exports data model for use by other scripts
 
+FOR PRODUCTION: 
+    --adjust to use process.env elements for the Database
+    --package json "start: node index" --turn off "start": "nodemon index.js",
+
     Updated By: Mike Gilson
     Updated Date: 07/22/2020
 */
 
 
-// reference db credentials
+// reference db credentials --FOR LOCALHOST WORK
 //const credentials = require("../credentials");
+
+// reference DB --FOR PRODUCTION
 const user = process.env.MONGO_USERNAME || "dbuser";
 const pass = process.env.MONGO_PASSWORD || "dbpassword";
 const url = process.env.MONGO_URL || "sccprojects.llt4i.mongodb.net";
@@ -20,6 +26,9 @@ const mongoose = require('mongoose');
 
 
 //connect to db via the credentials info
+    //--FOR LOCALHOST WORK
+//mongoose.connect(credentials.connectionString,  { dbName: "sccprojectdb", useNewUrlParser: true, useUnifiedTopology: true });
+    //--FOR PRODUCTION
 mongoose.connect(uri, { dbName: "sccprojectdb", useNewUrlParser: true, useUnifiedTopology: true });
 
 // (Week5 - 7/31/2020)
