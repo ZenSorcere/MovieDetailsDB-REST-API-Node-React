@@ -3,8 +3,10 @@ DEPLOYMENT: Finished app is uploaded to the following locations:
 Glitch: https://maple-platinum-archer.glitch.me
 Heroku: https://evening-castle-45800.herokuapp.com/
 
-# IT122-Adv-Javascript-NodeJS
-Repository for IT 122: Advanced Javascript (Node.js) - Summer2020
+# Movie Details DB REST API with React
+* Repository for IT 122: Advanced Javascript (Node.js) - Summer2020
+* REST API Single page app, built with Node.js, Express, JavaScript, React, Mongoose, and MongoDB
+* Users can browse movie title in the database, get details, add new titles, and update or delete existing titles.
 
 WEEK1 - Node.js up and running
 -------------------------------------------------------------------------
