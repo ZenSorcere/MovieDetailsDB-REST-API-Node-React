@@ -6,9 +6,10 @@
 FOR PRODUCTION: 
     --adjust to use process.env elements for the Database
     --package json "start: node index" --turn off "start": "nodemon index.js",
-
+    --in terminal--> git push heroku master
+    --for glitch, Tools>import export>import from github--> copy github code>clone link.
     Updated By: Mike Gilson
-    Updated Date: 07/22/2020
+    Updated Date: 08/24/2020
 */
 
 

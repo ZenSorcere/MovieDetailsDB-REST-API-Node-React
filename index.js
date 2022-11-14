@@ -88,6 +88,7 @@ app.get('/api/movies', (req, res) => {
     .then((movies) => {
         res.json(movies)
     })
+    // eslint-disable-next-line no-unused-vars
     .catch(err => {
         res.status(500).send('Error occurred: dabatase error')})
 })
