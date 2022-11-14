@@ -9,6 +9,10 @@
     "test": "mocha test/**",
     "lint": "eslint **/*.js"
   },
+  "engines": {
+    "node": "16.11.1",
+    "npm": "8.0.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ZenSorcere/IT122-Adv-Javascript-NodeJS.git"
